@@ -16,7 +16,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: docker build -t ghcr.io/apatisss/docker2:1.0 .
+      - run: docker build -t ghcr.io/apatisss/docker2:1.0 ./python-app
       - run: docker build -t ghcr.io/apatisss/jss:1.0 /path/to/dockerfile_directory
         working-directory: /path/to/dockerfile_directory
   docker_run:
@@ -29,6 +29,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: docker pull ghcr.io/apatisss/docker2:1.0
+      - run: docker pull ghcr.io/apatisss/docker2:1.0 ./node-app
       - run: docker build -t ghcr.io/apatisss/jss:1.0 /path/to/dockerfile_directory
         working-directory: /path/to/dockerfile_directory
