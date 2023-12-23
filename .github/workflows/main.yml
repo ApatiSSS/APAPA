@@ -16,7 +16,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: docker build -t ghcr.io/apatisss/docker2:1.0 ./python-app
+      - run: docker build -t ghcr.io/apatisss/APAPA:1.0 ./python-app
   docker_node:
     needs: [push_to_registry]
     runs-on: ubuntu-latest
@@ -28,4 +28,4 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: pwd
-      - run: docker build -t ghcr.io/apatisss/docker2:1.0 ./node-app
+      - run: docker build -t ghcr.io/apatisss/APAPA:1.0 ./node-app
