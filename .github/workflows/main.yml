@@ -1,74 +1,34 @@
 name: CI
 
 on: [push]
-  
+
 jobs:
-  build:
-    name: builder
+  push_to_registry:
+    name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
-      - name: firstStep
+      - name: Check out the repo
         uses: actions/checkout@v4
-
-      - name: secondStep
+      
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: docker build -t ghcr.io/apatisss/jss:1.0 .
-      - run: docker push ghcr.io/apatisss/jss:1.0
-      - run: docker build -t ghcr.io/apatisss/json:1.0 .
-      - run: docker push ghcr.io/apatisss/json:1.0
+      - run: docker build -t ghcr.io/apatisss/docker2:1.0 .
+      - run: docker build -t ghcr.io/apatisss/jss:1.0 /path/to/dockerfile_directory
+        working-directory: /path/to/dockerfile_directory
   docker_run:
-    needs: [build]
-    name: docker_run
+    needs: [push_to_registry]
     runs-on: ubuntu-latest
     steps:
-      - name: firstStep
-        uses: actions/checkout@v4
-
-      - name: secondStep
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: docker pull ghcr.io/apatisss/jss:1.0
-      - run: docker run ghcr.io/apatisss/jss:1.0
-      - run: docker pull ghcr.io/apatisss/json:1.0
-      - run: docker run ghcr.io/apatisss/json:1.0
-  web_run:
-    runs-on: ubuntu-latest
-    needs: [docker_run]
-    name: web
-    steps:
-      - name: Run check js
-        run: npx prettier --check "*.js”
-      - name: Run code
-        run: |
-              version: "3.7"
-              services:
-                webserver:
-                  container_name: webserver
-                  restart: unless-stopped
-                  image: nginx
-                  ports:
-                    - 4040:80
-                    - 4141:443
-                database:
-                  container_name: database
-                  restart: unless-stopped
-                  image: mysql
-                  environment:
-                    MYSQL_ROOT_PASSWORD: root
-                pma:
-                  container_name: pma
-                  restart: unless-stopped
-                  image: phpmyadmin
-                  ports:
-                    - 5050:80
-                  depends_on:
-                    - database
-                  links:
-                    - database:db
+      - run: docker pull ghcr.io/apatisss/docker2:1.0
+      - run: docker build -t ghcr.io/apatisss/jss:1.0 /path/to/dockerfile_directory
+        working-directory: /path/to/dockerfile_directory
