@@ -27,4 +27,5 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm install
       - run: docker build -t ghcr.io/apatisss/apapa:1.0 ./node-app
