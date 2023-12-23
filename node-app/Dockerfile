@@ -2,6 +2,6 @@ FROM node:latest
 
 WORKDIR /app
 
-COPY node.js package.json . 
+COPY . .
 
 ENTRYPOINT ["node", "node.js"]
