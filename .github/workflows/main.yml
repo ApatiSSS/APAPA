@@ -16,10 +16,10 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: docker build -t ghcr.io/sagr0m/jss:1.0 .
-      - run: docker push ghcr.io/sagr0m/jss:1.0
-      - run: docker build -t ghcr.io/sagr0m/json:1.0 .
-      - run: docker push ghcr.io/sagr0m/json:1.0
+      - run: docker build -t ghcr.io/apatisss/jss:1.0 .
+      - run: docker push ghcr.io/apatisss/jss:1.0
+      - run: docker build -t ghcr.io/apatisss/json:1.0 .
+      - run: docker push ghcr.io/apatisss/json:1.0
   docker_run:
     needs: [build]
     name: docker_run
