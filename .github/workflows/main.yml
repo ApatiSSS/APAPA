@@ -27,5 +27,4 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - run: pwd
       - run: docker build -t ghcr.io/apatisss/APAPA:1.0 ./node-app
