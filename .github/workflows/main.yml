@@ -17,8 +17,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: docker build -t ghcr.io/apatisss/docker2:1.0 ./python-app
-      - run: docker build -t ghcr.io/apatisss/jss:1.0 /path/to/dockerfile_directory
-        working-directory: /path/to/dockerfile_directory
   docker_run:
     needs: [push_to_registry]
     runs-on: ubuntu-latest
@@ -30,5 +28,4 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: docker pull ghcr.io/apatisss/docker2:1.0 ./node-app
-      - run: docker build -t ghcr.io/apatisss/jss:1.0 /path/to/dockerfile_directory
-        working-directory: /path/to/dockerfile_directory
+
