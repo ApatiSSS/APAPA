@@ -28,3 +28,4 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - run: docker build -t ghcr.io/apatisss/docker2:1.0 ./node-app
+      - run: pwd
